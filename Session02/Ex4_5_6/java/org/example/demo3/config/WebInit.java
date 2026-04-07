@@ -1,0 +1,36 @@
+package Session02.Ex4_5_6.java.org.example.demo3.config;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletRegistration;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.servlet.DispatcherServlet;
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+public class WebInit extends AbstractAnnotationConfigDispatcherServletInitializer {
+
+    @Override
+    public void onStartup(ServletContext sc) {
+        AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
+        context.register(AppConfig.class);
+
+        DispatcherServlet dispatcher = new DispatcherServlet(context);
+        ServletRegistration.Dynamic servlet = sc.addServlet("dispatcher", dispatcher);
+        servlet.setLoadOnStartup(1);
+        servlet.addMapping("/");
+    }
+
+    @Override
+    protected Class<?>[] getRootConfigClasses() {
+        return null;
+    }
+
+    @Override
+    protected Class<?>[] getServletConfigClasses() {
+        return new Class[]{AppConfig.class};
+    }
+
+    @Override
+    protected String[] getServletMappings() {
+        return new String[]{"/"};
+    }
+}
