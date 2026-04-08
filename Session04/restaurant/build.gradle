@@ -1,0 +1,40 @@
+plugins {
+  id 'java'
+  id 'war'
+}
+
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+  mavenCentral()
+}
+
+// Spring 7 yêu cầu Java 17 trở lên, khuyến khích Java 21 cho Jakarta 11
+sourceCompatibility = '17'
+targetCompatibility = '17'
+
+dependencies {
+  // --- SPRING 7 (Mới + tương thích Tomcat 10) ---
+  implementation('org.springframework:spring-context:7.0.6')
+  implementation('org.springframework:spring-web:7.0.6')
+  implementation('org.springframework:spring-webmvc:7.0.6')
+
+  // --- JAKARTA (Tomcat 10+) ---
+  compileOnly("jakarta.servlet:jakarta.servlet-api:6.0.0")
+  compileOnly("jakarta.annotation:jakarta.annotation-api:3.0.0")
+
+  // --- JSP + JSTL ---
+  implementation("jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.2")
+  runtimeOnly("org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1")
+
+  // --- JSON ---
+  implementation("com.fasterxml.jackson.core:jackson-databind:2.18.2")
+
+  // --- TEST ---
+  testImplementation("org.junit.jupiter:junit-jupiter:5.11.4")
+}
+
+test {
+  useJUnitPlatform()
+}
