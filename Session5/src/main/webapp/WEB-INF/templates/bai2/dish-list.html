@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title layout:fragment="title">Tiêu đề mặc định</title>
+</head>
+<body>
+<header>
+    <h1>Logo Nhà Hàng</h1>
+</header>
+
+<main layout:fragment="content">
+    <h2>Danh sách món ăn</h2>
+    <table border="1">
+        <tr>
+            <th>Tên món</th>
+            <th>Giá</th>
+            <th>Trạng thái</th>
+            <th>Hành động</th>
+        </tr>
+        <tr th:each="dish : ${dishes}">
+            <td th:text="${dish.name}"></td>
+            <td th:text="${dish.price}"></td>
+            <td th:text="${dish.isAvailable} ? 'Còn hàng' : 'Hết hàng'"
+                th:style="${dish.isAvailable} ? '' : 'color:red;'"></td>
+            <td>
+                <a th:href="@{|/bai3/edit/${dish.id}|}">Chỉnh sửa</a>
+            </td>
+        </tr>
+    </table>
+</main>
+<footer>
+    <p>Liên hệ: abc@example.com</p>
+</footer>
+</body>
+</html>
