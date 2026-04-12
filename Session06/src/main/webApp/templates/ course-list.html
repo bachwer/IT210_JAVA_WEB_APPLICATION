@@ -1,0 +1,32 @@
+<div layout:decorate="~{layout/main-layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+    <div layout:fragment="content">
+
+        <form method="get" th:action="@{/course/list}">
+            <select name="level">
+                <option value="">All</option>
+                <option>Beginner</option>
+                <option>Intermediate</option>
+                <option>Advanced</option>
+            </select>
+
+            <input type="number" name="maxFee" placeholder="Max fee">
+            <button>Search</button>
+        </form>
+
+        <div th:if="${#lists.isEmpty(courses)}">
+            Hiện chưa có lớp học phù hợp với trình độ này
+        </div>
+
+        <table>
+            <tr th:each="c : ${courses}">
+                <td th:text="${c.name}"></td>
+                <td th:text="${#numbers.formatDecimal(c.tuitionFee, 0, 'COMMA', 0, 'POINT')}"></td>
+
+                <td>
+                    <span th:if="${c.full}">HẾT CHỖ</span>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+</div>
